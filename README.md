@@ -22,8 +22,6 @@ Timings on 4 × AMD Radeon PRO W7900D GPUs:
 | Each further 10 steps + evaluation | ~13 min (estimated) |
 | Whole 40-step run | ~55 min (estimated) |
 
-In a 40-minute session participants see the first two evaluations, and possibly the third. Ask them to run the notebook's stop cell at the end of the session if training is still running.
-
 ## Requirements
 
 - An RLinf ROCm RoboTwin container image (`BUILD_TARGET=embodied-robotwin`, `PLATFORM=amd`, `ROCM_ARCHS=gfx1100`; see the [RLinf RoboTwin guide](https://rlinf.readthedocs.io/en/latest/rst_source/examples/embodied/robotwin.html)) with JupyterLab added to `/opt/venv/lingbotvla`.
