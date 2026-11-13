@@ -1,2 +1,5 @@
 .ipynb_checkpoints/
 __pycache__/
+# build-context copies for docker/Dockerfile
+docker/robotwin-assets/
+docker/*.ipynb

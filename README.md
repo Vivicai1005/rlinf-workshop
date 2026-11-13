@@ -24,8 +24,41 @@ Timings on 4 × AMD Radeon PRO W7900D GPUs:
 
 ## Requirements
 
-- An RLinf ROCm RoboTwin container image (`BUILD_TARGET=embodied-robotwin`, `PLATFORM=amd`, `ROCM_ARCHS=gfx1100`; see the [RLinf RoboTwin guide](https://rlinf.readthedocs.io/en/latest/rst_source/examples/embodied/robotwin.html)) with JupyterLab added to `/opt/venv/lingbotvla`.
 - 4 AMD Radeon PRO W7900D GPUs and ~200 GB of host RAM per participant.
-- Mounted into the container: the RLinf source at `/workspace/RLinf`, RoboTwin (`RLinf_support` branch) with its assets at `/opt/robotwin`, and these models under `/data/models`: `lingbot-vla-4b-posttrain-robotwin`, `Qwen2.5-VL-3B-Instruct`, `lingbot-vla-4b`.
+- The workshop image (below), and the model weights on the host (~39 GB): `lingbot-vla-4b-posttrain-robotwin`, `Qwen2.5-VL-3B-Instruct` and `lingbot-vla-4b`.
 
-The notebook's appendix has the derived Dockerfile and the `docker run` command for each participant's container.
+## Workshop image
+
+[`docker/Dockerfile`](docker/Dockerfile) builds the image the participants use. It starts from the RLinf ROCm RoboTwin image (`BUILD_TARGET=embodied-robotwin`, `PLATFORM=amd`, `ROCM_ARCHS=gfx1100`; see the [RLinf RoboTwin guide](https://rlinf.readthedocs.io/en/latest/rst_source/examples/embodied/robotwin.html)) and adds everything the notebook needs except the model weights:
+
+| Path in the image | Content |
+| --- | --- |
+| `/workspace/RLinf` | RLinf source, pinned to the validated commit (`58d1b9ab`) |
+| `/opt/robotwin` | RoboTwin, `RLinf_support` branch (`dca9ec6`), with its assets in `/opt/robotwin/assets` (~16 GB) |
+| `/opt/venv/lingbotvla` | Lingbot-VLA environment from the RLinf image, plus JupyterLab |
+| `/workspace/rlinf_lingbot_place_shoe_grpo_workshop.ipynb` | The notebook |
+
+Build it with the notebook and the RoboTwin assets (downloaded with RoboTwin's `script/_download_assets.sh`) in the build context:
+
+```bash
+cd docker
+cp ../rlinf_lingbot_place_shoe_grpo_workshop.ipynb .
+cp -r /path/to/robotwin-assets ./robotwin-assets     # background_texture, embodiments, objects, files
+docker build -t rlinf-ws:latest .
+# options: --build-arg BASE_IMAGE=<RLinf ROCm RoboTwin image>  --build-arg GITHUB_PREFIX=<GitHub proxy>
+#          --build-arg PYPI_INDEX=<PyPI mirror for JupyterLab>
+```
+
+Start one container per participant, mounting only the models; JupyterLab serves the notebook on port 8888:
+
+```bash
+docker run -d --name rlinf-ws \
+  --device /dev/kfd --device /dev/dri --group-add video --group-add render \
+  --init --security-opt seccomp=unconfined --ipc=host --shm-size 64g -p 8888:8888 \
+  -v /path/to/models:/data/models:ro \
+  rlinf-ws:latest \
+  /opt/venv/lingbotvla/bin/jupyter lab --notebook-dir=/workspace --ip=0.0.0.0 --port=8888 \
+      --allow-root --no-browser --ServerApp.token=<token>
+```
+
+The notebook's appendix explains the options.
