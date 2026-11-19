@@ -1,0 +1,9 @@
+# The PyTorch ROCm 7.2 wheels, by file name and sha256 (each identical, file by file, to what the validated image has),
+# from TORCH_WHEELS_MIRROR then download.pytorch.org. Installed one by one in this order: three packages provide the
+# `triton` module, and the validated image has triton-rocm, then pytorch-triton-rocm, then triton 3.5.1 on top.
+# <sha256> <path under .../whl/>
+3286c59eb97e65ab705e207689b6a47807cb73a27ce53e9e774e46bab01318fe triton_rocm-3.6.0-cp311-cp311-linux_x86_64.whl
+bc1014a779a9db5b0e43ec643f98e1edb56ce05399fa7ad244d8686c809d2afb pytorch_triton_rocm-3.5.1-cp311-cp311-linux_x86_64.whl
+dabcfd04708e7608eaba4c78b5eec7729273d96c1ec8adf41db7fa3b12d05d04 triton-3.5.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+e86e64dc070eebe40bd7d7d397b418f3e16a528ed91495efcfbbe430ba3bb45d rocm7.2/torch-2.11.0+rocm7.2-cp311-cp311-manylinux_2_28_x86_64.whl
+2104e5a357e32bd9260a32149af8ba0a5873dc579d6fe86b23b704c03111c277 rocm7.2/torchvision-0.26.0+rocm7.2-cp311-cp311-manylinux_2_28_x86_64.whl
