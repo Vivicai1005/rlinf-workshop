@@ -18,10 +18,12 @@ Timings on 4 × AMD Radeon PRO W7900D GPUs:
 | Start-up (Ray, model loading, environments) | ~2.5 min |
 | Step 1 | ~130 s |
 | Every other step | 55–75 s |
-| Evaluation (32 episodes) | ~90 s (up to ~3 min if other jobs load the CPUs) |
-| **Launch → first evaluation result (after step 10)** | **16–18 min** (measured) |
-| Each further 10 steps + evaluation | ~13 min (estimated) |
-| Whole 40-step run | ~55 min (estimated) |
+| Evaluation (32 episodes) | ~3 min the first time, then ~1.5 min (longer if other jobs load the CPUs) |
+| **Launch → first evaluation result (after step 10)** | **~18 min** |
+| Each further 10 steps + evaluation | ~12 min |
+| Whole 40-step run | ~55 min |
+
+Measured in four full 40-step runs.
 
 ## Requirements
 
@@ -103,4 +105,4 @@ docker run -d --name rlinf-ws \
   jupyter lab --notebook-dir=/workspace --ip=0.0.0.0 --port=8888 --allow-root --no-browser --ServerApp.token=<token>
 ```
 
-The notebook's appendix explains the options.
+`--init` lets finished background processes be reaped (the notebook launches training with `nohup setsid`). One run peaks at ~170 GB of host RAM, so the machine needs at least ~200 GB. If several participants share one machine, start each container on the default bridge network (not `--network host`) so that their Ray clusters do not collide on ports, and publish a different JupyterLab port for each.
