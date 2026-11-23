@@ -9,7 +9,7 @@ A hands-on Jupyter notebook that trains the **Lingbot-VLA** policy with **GRPO**
 
 ## What participants run
 
-A demo-sized GRPO run: 16 parallel RoboTwin environments on 4 GPUs (GRPO group size 4), 40 training steps, with an evaluation on 32 held-out scenes (with videos) after steps 10, 20, 30 and 40. The live monitor stops at each new evaluation so participants can plot the curves and play the videos while training continues.
+A demo-sized GRPO run: 16 parallel RoboTwin environments on 4 GPUs (GRPO group size 4), 40 training steps, with an evaluation on 32 held-out scenes (with videos) after steps 10, 20, 30 and 40. The live monitor stops at each new evaluation so participants can play its videos while training continues.
 
 Timings on 4 × AMD Radeon PRO W7900D GPUs:
 
