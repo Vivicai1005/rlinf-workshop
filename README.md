@@ -25,6 +25,8 @@ Timings on 4 × AMD Radeon PRO W7900D GPUs:
 
 Measured in four full 40-step runs.
 
+If you change the configuration beyond the workshop's overrides, keep `rollout.pipeline_stage_num: 1` (the recipe's default) and leave `runner.overlap_env_bootstrap` off on Radeon GPUs: both run Vulkan rendering and HIP compute on the same GPU at the same time, which has caused GPU hangs on Radeon PRO W7900D (`HW Exception ... GPU Hang`, `vk::Device::waitForFences: ErrorDeviceLost`). They would save little time anyway: the step time is dominated by resetting the RoboTwin scenes.
+
 ## Requirements
 
 - 4 AMD Radeon PRO W7900D GPUs and ~200 GB of host RAM per participant, with at least 8 GB of `/dev/shm`.
