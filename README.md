@@ -5,7 +5,6 @@ A hands-on Jupyter notebook that trains the **Lingbot-VLA** policy with **GRPO**
 | Notebook | What it covers |
 | --- | --- |
 | [`rlinf_lingbot_place_shoe_grpo_workshop.ipynb`](rlinf_lingbot_place_shoe_grpo_workshop.ipynb) (English) | GRPO for VLA policies, how RLinf runs a training step, checking the GPUs and environment, the workshop configuration, launching a 40-step training run in the background, live progress monitoring, metrics, evaluation results and videos after every evaluation |
-| [`rlinf_lingbot_place_shoe_grpo_workshop_zh.ipynb`](rlinf_lingbot_place_shoe_grpo_workshop_zh.ipynb) (中文) | Chinese version of the same notebook, with identical code and settings |
 
 ## What participants run
 
